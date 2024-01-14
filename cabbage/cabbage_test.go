@@ -36,17 +36,17 @@ func (t TestService) ProccessTask(ctx context.Context, body []byte, ID string) e
 }
 
 var (
-	broker      = &MockCabbageBroker{}
-	tProccesser = TestService{}
-	testTask    = &Task{
+	testbroker      = &MockCabbageBroker{}
+	testtProccesser = TestService{}
+	testTask        = &Task{
 		Name:        taskName,
 		QueueName:   queueName,
-		TProccesser: tProccesser,
+		TProccesser: testtProccesser,
 	}
 )
 
 func TestCreateWorkerAndRegisterTask(t *testing.T) {
-	client := NewCabbageClient(broker)
+	client := NewCabbageClient(testbroker)
 	worker, err := client.CreateWorker(queueName, 1)
 	if err != nil {
 		t.Log("Cant create worker")
