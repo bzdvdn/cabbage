@@ -6,7 +6,7 @@ import (
 	"sync"
 )
 
-// CabbageClient provides API for sending celery tasks
+// CabbageClient provides API for sending cabbage tasks
 type CabbageClient struct {
 	broker         CabbageBroker
 	taskLock       sync.RWMutex
