@@ -1,6 +1,7 @@
 package cabbage
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"log"
@@ -91,11 +92,19 @@ func (shd *Scheduler) runPending(t time.Time) {
 
 // Start scheduler
 func (shd *Scheduler) Start() chan bool {
+	ctx := context.Background()
+	return shd.StartWithContext(ctx)
+}
+
+func (shd *Scheduler) StartWithContext(ctx context.Context) chan bool {
 	log.Println("[*] Start Cabbage Scheduler")
 	shd.stopped = make(chan bool, 1)
 	go func() {
 		for {
 			select {
+			case <-ctx.Done():
+				shd.ticker.Stop()
+				return
 			case t := <-shd.ticker.C:
 				shd.runPending(t)
 			case <-shd.stopped:
