@@ -22,7 +22,7 @@ func (t TestData) ToPublish() ([]byte, error) {
 }
 
 func main() {
-	broker, err := cabbage.NewRabbitMQBroker("amqp://admin:Gfhjkm123@localhost:5672/", 1)
+	broker, err := cabbage.NewRabbitMQBroker("amqp://admin:Gfhjkm1234@localhost:5672/", 1)
 	if err != nil {
 		fmt.Printf("error %v", err)
 		return
